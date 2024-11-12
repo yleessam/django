@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>pylog post list</title>
+</head>
+<body>
+    <div id="navbar">
+        <!-- thumnail 조건 처리 -->
+        {% if post.thumbnail %}
+            <img src="{{ post.thumbnail.url }}" alt="post image">
+        {% endif %}
+
+        <span>{{ post.title }}</span>
+    </div>
+    <div><br><br><br><br></div>
+    <div id="post_detail">
+        <!-- post 내용 출력-->
+        <p>{{ post.content|linebreaksbr }}</p>
+        
+        <!-- 댓글 출력 -->
+        <ul class="comments">
+            <!-- comment 출력 -->
+            {% for comment in post.comment_set.all %}
+            <li class="comment">{{ comment.content }}</li>
+            {% empty %}
+            <li class="comment-empty">댓글이 없습니다.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- 댓글 작성 form -->
+        <form method="POST">
+            {% csrf_token %}
+            <textarea name="comment"></textarea>
+            <button type="submit" class="btn btn-primary">댓글 작성</button>
+    </div>
+      
+</body>
+</html>

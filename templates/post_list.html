@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>pylog post list</title>
+</head>
+<body>
+    <div id="navbar">
+        <span>pylog</span>
+
+        <!-- 포스트 작성 버튼 -->
+        <a href="/posts/add/" class="btn btn-primary">Add Post</a>
+
+
+        
+    </div>
+    <div id="post_list">
+        <h1>pylog posting</h1>
+
+        <ul class="posts">
+            {%  for post in posts %}
+            <li class="post">
+                <h2> <a href="/posts/{{post.id}}/">{{ post.title }}</a> </h2>
+
+                <p> {{ post.content }} </p>
+                <ul class="comments">
+                    {% for comment in post.comment_set.all %}
+                    <li class="comment">{{ comment.content }}</li>
+                    {% empty %}
+                    <li class="comment-empty">댓글이 없습니다.</li>
+                    {% endfor %}
+                </ul>
+                {% if post.thumbnail %}
+                    <img src="{{ post.thumbnail.url }}" alt="post image">
+                {% else %}
+                    <img src="" alt="no image">
+                {% endif %}
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+</body>
+</html>

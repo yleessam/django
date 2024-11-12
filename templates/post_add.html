@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>pylog post add</title>
+</head>
+<body>
+    <div id="navbar">
+        <span> Post Add</span>
+    </div>
+
+    <br><br><br><br>
+
+    <div id="post_add">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div>
+                <label>제목</label>
+                <input type="text" name="title">
+            </div>
+
+            <div>
+                <label>내용</label>
+                <textarea name="content"></textarea>
+            </div>
+
+            <div>
+                <label>썸네일</label>
+                <input type="file" name="thumbnail">
+            </div>
+            <button type="submit" class="btn btn-primary">작성</button>
+        </form>
+    </div>
+      
+</body>
+</html>
